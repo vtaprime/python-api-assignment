@@ -6,7 +6,7 @@ import json
 from django.views import defaults
 
 from customer_manage_lib.config import ACCESS_TOKEN_SECRET
-from utils.utils import get_now_ts, api_response
+from .utils import get_now_ts, api_response
 from customer_manage_lib.constants import Result
 from customer_manage_lib.logger import Logger
 from customer_manage_lib.manager import customer_manager

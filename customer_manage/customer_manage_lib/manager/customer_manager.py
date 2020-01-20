@@ -1,8 +1,8 @@
-from models import *
-from cache_manager import cache_data_by_one_key, del_cache_by_one_key, cache_data_by_keys, CONFIG_GET_CUSTOMER_INFOS, \
+from .models import *
+from .cache_manager import cache_data_by_one_key, del_cache_by_one_key, cache_data_by_keys, CONFIG_GET_CUSTOMER_INFOS, \
 	CONFIG_GET_CUSTOMER_DETAIL
-from constants import LIMIT_ITEM_DEFAULT
-from utils.utils import get_now_ts, convert_string_to_date
+from customer_manage_lib.constants import LIMIT_ITEM_DEFAULT
+from customer_manage_lib.utils.utils import get_now_ts, convert_string_to_date
 
 
 def get_ids(name=None, dob=None, start_time=None, end_time=None, query_ts_type=1, limit=LIMIT_ITEM_DEFAULT):

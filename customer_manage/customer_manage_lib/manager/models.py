@@ -5,8 +5,8 @@ class CustomerTab(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
     dob = models.DateField()
-    updated_at = models.IntegerField()
-    created_at = models.IntegerField()
+    created_at = models.BigIntegerField()
+    updated_at = models.BigIntegerField()
     is_deleted = models.SmallIntegerField()
 
     class Meta:

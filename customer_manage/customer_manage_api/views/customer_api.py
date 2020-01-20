@@ -1,4 +1,4 @@
-from views.form_schema import CustomerSchema, CustomerInfoSchema, CustomerDeleteSchema
+from .form_schema import CustomerSchema, CustomerInfoSchema, CustomerDeleteSchema
 from customer_manage_lib.utils.utils import api_response
 from customer_manage_lib.utils.process_request_utils import verify_access_token, parse_params
 from customer_manage_lib.manager import customer_manager

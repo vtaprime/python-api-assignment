@@ -1,7 +1,7 @@
 import datetime
 import time
 import json
-from constants import DATE_FORMAT
+from customer_manage_lib.constants import DATE_FORMAT
 
 
 def convert_string_to_date(str_date):
