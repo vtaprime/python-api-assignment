@@ -1,11 +1,12 @@
 from .form_schema import CustomerSchema, CustomerInfoSchema, CustomerDeleteSchema
 from customer_manage_lib.utils.utils import api_response
-from customer_manage_lib.utils.process_request_utils import verify_access_token, parse_params
+from customer_manage_lib.utils.process_request_utils import verify_access_token, parse_params, pre_process_header
 from customer_manage_lib.manager import customer_manager
 from customer_manage_lib.constants import Result
 
 
 @parse_params(CustomerSchema)
+@pre_process_header()
 @verify_access_token()
 def create_customer(request, data):
 	customer = customer_manager.create({'name': data['name'], 'dob': data['dob']})
@@ -16,6 +17,7 @@ def create_customer(request, data):
 	return api_response(Result.SUCCESS, customer)
 
 
+@pre_process_header()
 @verify_access_token()
 def get_customer_ids(request):
 	data = request.GET
@@ -30,6 +32,7 @@ def get_customer_ids(request):
 	return api_response(Result.SUCCESS, {'ids': ids})
 
 
+@pre_process_header()
 @parse_params(CustomerInfoSchema)
 @verify_access_token()
 def get_customer_infos(request, data):
@@ -38,6 +41,7 @@ def get_customer_infos(request, data):
 	return api_response(Result.SUCCESS, {'customer_infos': customer_infos})
 
 
+@pre_process_header()
 @verify_access_token()
 def get_customer_details(request):
 	customer_id = request.GET.get('customer_id')
@@ -46,6 +50,7 @@ def get_customer_details(request):
 	return api_response(Result.SUCCESS, customer)
 
 
+@pre_process_header()
 @parse_params(CustomerSchema)
 @verify_access_token()
 def update_customer(request, data):
@@ -57,6 +62,7 @@ def update_customer(request, data):
 	return api_response(Result.SUCCESS, customer)
 
 
+@pre_process_header()
 @parse_params(CustomerDeleteSchema)
 @verify_access_token()
 def delete_customer(request, data):

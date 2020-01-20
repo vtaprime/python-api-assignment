@@ -72,3 +72,30 @@ def parse_params(form, method='POST'):
 		return _func
 
 	return _parse_params
+
+
+def pre_process_header():
+	def _pre_process_header(func):
+		def _func(request, *args, **kwargs):
+			data = {}
+			if len(args) > 0:
+				data = args[0]
+
+			headers = request.META
+			try:
+				data["api_version"] = int(headers["HTTP_X_API_VERSION"])
+				data["access_token"] = headers.get("HTTP_X_ACCESS_TOKEN")
+			except Exception as err:
+				log.exception("header_invalid|headers=%s" % headers)
+				return api_response(Result.ERROR_HEADER)
+
+			# find ip country
+
+			if len(args) > 0:
+				return func(request, *args, **kwargs)
+			else:
+				return func(request, data, *args, **kwargs)
+
+		return _func
+
+	return _pre_process_header

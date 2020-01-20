@@ -16,3 +16,4 @@ class Result():
 	INVALID_ACCESS_TOKEN = 'err_invalid_access_token'
 	ERROR_SERVER = 'error_server'
 	INVALID_USER = 'error_user_invalid'
+	ERROR_HEADER = 'error_header'
