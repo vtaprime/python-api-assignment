@@ -18,7 +18,7 @@
 *.idb
 *.log*
 *.sock
-*.sql
+#*.sql
 *.opensdf
 *.pyc
 *.swp
