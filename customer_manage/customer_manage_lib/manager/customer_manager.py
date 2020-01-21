@@ -24,10 +24,10 @@ def get_ids(name=None, dob=None, start_time=None, end_time=None, query_ts_type=0
 
 @cache_data_by_keys(CONFIG_GET_CUSTOMER_INFOS['prefix'])
 def get_infos(ids):
-	event_infos = CustomerTab.objects.filter(id__in=ids).values('id', 'name', 'dob')
-	for event_info in event_infos:
-		event_info['dob'] = convert_date_to_string(event_info['dob'])
-	return {item['id']: item for item in event_infos}
+	customer_infos = CustomerTab.objects.filter(id__in=ids).values('id', 'name', 'dob')
+	for customer_info in customer_infos:
+		customer_info['dob'] = convert_date_to_string(customer_info['dob'])
+	return {item['id']: item for item in customer_infos}
 
 
 def create(customer_info):
@@ -56,7 +56,8 @@ def get_detail(customer_id, is_deleted=None):
 	else:
 		item = item.filter(is_deleted=0)
 	item = item.values('id', 'name', 'dob').first()
-	item['dob'] = convert_date_to_string(item['dob'])
+	if item:
+		item['dob'] = convert_date_to_string(item['dob'])
 	return item
 
 

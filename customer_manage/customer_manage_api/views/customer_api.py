@@ -2,13 +2,16 @@ from .form_schema import CustomerSchema, CustomerInfoSchema, CustomerDeleteSchem
 from customer_manage_lib.utils.utils import api_response, convert_string_to_unix_timestamp
 from customer_manage_lib.utils.process_request_utils import verify_access_token, parse_params, pre_process_header
 from customer_manage_lib.manager import customer_manager
-from customer_manage_lib.constants import Result, EXTRA_TIME_QUERY
+from customer_manage_lib.constants import Result, EXTRA_TIME_QUERY, VALID_AGE
+from customer_manage_lib.utils.utils import calculate_age
 
 
 @parse_params(CustomerSchema)
 @pre_process_header()
 @verify_access_token()
 def create_customer(request, data):
+	if calculate_age(data['dob']) <= VALID_AGE:
+		return api_response(Result.ERROR_MSG_DEFINE, {"message": "Age of customer have to greater than 18!"})
 	customer = customer_manager.create({'name': data['name'], 'dob': data['dob']})
 
 	if not customer:
@@ -48,7 +51,8 @@ def get_customer_infos(request, data):
 def get_customer_details(request, data):
 	customer_id = request.GET.get('customer_id')
 	customer = customer_manager.get_detail(customer_id)
-
+	if not customer:
+		return api_response(Result.USER_NOT_FOUND)
 	return api_response(Result.SUCCESS, customer)
 
 

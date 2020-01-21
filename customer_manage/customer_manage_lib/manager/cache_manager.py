@@ -69,7 +69,7 @@ def cache_data_by_keys(prefix, expiry_time=CACHE_DEFAULT_EXPIRY_TIME, cache_name
 				if response_data:
 					data_to_cache = {prefix % key: data for key, data in response_data.items() if data}
 					caches[cache_name].set_many(data_to_cache, expiry_time)
-				return dict(result.items() + response_data.items())
+				return {**result, **response_data}
 			else:
 				return result
 
