@@ -8,6 +8,15 @@ def convert_string_to_date(str_date):
 	return datetime.datetime.strptime(str_date, DATE_FORMAT).date()
 
 
+def convert_date_to_string(date_type):
+	return date_type.strftime(DATE_FORMAT)
+
+
+def convert_string_to_unix_timestamp(str_date):
+	return int(time.mktime(datetime.datetime.strptime(str_date, DATE_FORMAT).timetuple()))
+
+
+
 def get_now_ts():
 	return int(time.time())
 

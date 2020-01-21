@@ -27,9 +27,7 @@ def verify_access_token():
 				return api_response(Result.INVALID_ACCESS_TOKEN)
 
 			# verify session timestamp
-			if not customer_manager.get_detail(session['uid']):
-				return api_response(Result.INVALID_ACCESS_TOKEN)
-			if session['expirytime'] < get_now_ts():
+			if session['expiry_time'] < get_now_ts():
 				log.warn('access_token_expired|session=%s' % session)
 				return api_response(Result.INVALID_ACCESS_TOKEN)
 
@@ -83,7 +81,7 @@ def pre_process_header():
 
 			headers = request.META
 			try:
-				data["api_version"] = int(headers["HTTP_X_API_VERSION"])
+				data["api_version"] = headers["HTTP_X_API_VERSION"]
 				data["access_token"] = headers.get("HTTP_X_ACCESS_TOKEN")
 			except Exception as err:
 				log.exception("header_invalid|headers=%s" % headers)

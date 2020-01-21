@@ -60,14 +60,14 @@ def cache_data_by_keys(prefix, expiry_time=CACHE_DEFAULT_EXPIRY_TIME, cache_name
 			result = {}
 			key_map = {prefix % key: key for key in keys}
 			cached_data_dict = caches[cache_name].get_many(key_map.keys())
-			for cached_key, cached_data in cached_data_dict.iteritems():
+			for cached_key, cached_data in cached_data_dict.items():
 				key = key_map[cached_key]
 				result[key] = cached_data
 				keys.remove(key)
 			if keys:
 				response_data = func(keys)
 				if response_data:
-					data_to_cache = {prefix % key: data for key, data in response_data.iteritems() if data}
+					data_to_cache = {prefix % key: data for key, data in response_data.items() if data}
 					caches[cache_name].set_many(data_to_cache, expiry_time)
 				return dict(result.items() + response_data.items())
 			else:

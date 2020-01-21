@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^api/v1/customer/get-infos$', customer_api.get_customer_infos, name='get_customer_list'),
     url(r'^api/v1/customer/get-detail$', customer_api.get_customer_details, name='get_customer_detail'),
     url(r'^api/v1/customer/create$', customer_api.create_customer, name='create_customer'),
-    url(r'^api/v1/customer/udpate$', customer_api.update_customer, name='update_customer'),
+    url(r'^api/v1/customer/update$', customer_api.update_customer, name='update_customer'),
     url(r'^api/v1/customer/delete$', customer_api.delete_customer, name='delete_customer'),
 ]

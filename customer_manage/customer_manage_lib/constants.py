@@ -4,6 +4,7 @@ LIMIT_ITEM_DEFAULT = 1000
 DATE_FORMAT = "%Y-%m-%d"
 DATETIME_FORMAT = DATE_FORMAT + " %H:%M"
 HOUR_FORMAT = "%H:%M"
+EXTRA_TIME_QUERY = 24*3600-1
 
 
 class TimeRangeQueryType():

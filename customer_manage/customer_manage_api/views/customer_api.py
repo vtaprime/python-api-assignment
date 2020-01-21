@@ -1,8 +1,8 @@
 from .form_schema import CustomerSchema, CustomerInfoSchema, CustomerDeleteSchema
-from customer_manage_lib.utils.utils import api_response
+from customer_manage_lib.utils.utils import api_response, convert_string_to_unix_timestamp
 from customer_manage_lib.utils.process_request_utils import verify_access_token, parse_params, pre_process_header
 from customer_manage_lib.manager import customer_manager
-from customer_manage_lib.constants import Result
+from customer_manage_lib.constants import Result, EXTRA_TIME_QUERY
 
 
 @parse_params(CustomerSchema)
@@ -19,7 +19,7 @@ def create_customer(request, data):
 
 @pre_process_header()
 @verify_access_token()
-def get_customer_ids(request):
+def get_customer_ids(request, data):
 	data = request.GET
 	name = data.get('name')
 	dob = data.get('dob')
@@ -27,13 +27,15 @@ def get_customer_ids(request):
 	end_time = data.get('end_time')
 	query_ts_type = data.get('type')
 	limit = data.get('limit')
+	start_time = convert_string_to_unix_timestamp(start_time) if start_time else start_time
+	end_time = convert_string_to_unix_timestamp(end_time) + EXTRA_TIME_QUERY if end_time else end_time
 	ids = customer_manager.get_ids(name, dob, start_time, end_time, query_ts_type, limit)
 
 	return api_response(Result.SUCCESS, {'ids': ids})
 
 
-@pre_process_header()
 @parse_params(CustomerInfoSchema)
+@pre_process_header()
 @verify_access_token()
 def get_customer_infos(request, data):
 	customer_infos = customer_manager.get_infos(data['ids'])
@@ -43,18 +45,18 @@ def get_customer_infos(request, data):
 
 @pre_process_header()
 @verify_access_token()
-def get_customer_details(request):
+def get_customer_details(request, data):
 	customer_id = request.GET.get('customer_id')
 	customer = customer_manager.get_detail(customer_id)
 
 	return api_response(Result.SUCCESS, customer)
 
 
-@pre_process_header()
 @parse_params(CustomerSchema)
+@pre_process_header()
 @verify_access_token()
 def update_customer(request, data):
-	customer = customer_manager.update(data['id'], data.get('dob'), data.get('name'))
+	customer = customer_manager.update(data['id'], data.get('name'), data.get('dob'))
 
 	if not customer:
 		return api_response(Result.INVALID_USER)
@@ -62,8 +64,8 @@ def update_customer(request, data):
 	return api_response(Result.SUCCESS, customer)
 
 
-@pre_process_header()
 @parse_params(CustomerDeleteSchema)
+@pre_process_header()
 @verify_access_token()
 def delete_customer(request, data):
 	customer = customer_manager.delete(data['id'])
