@@ -130,3 +130,7 @@ with expiry_time value is UTC timestamp, see more about Python JWT [here](https:
 #### Something need to do in the future
 - Install Proxy server, uwsgi server to improve security and performance,.. 
 - Using Falcon framework to create Rest API to improve performance. I use django for perform this task because for now I have not enough time to research about it.
+
+#### Finally
+- This [link](https://www.getpostman.com/collections/7bc18ba8475e0dcbf046) is postman collection to test project.
+- Clone this project: (https://github.com/vtaprime/python-api-assignment.git)
