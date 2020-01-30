@@ -97,6 +97,7 @@ python-api-assignment
     │   │       ├── process_request_utils.py
     │   │       └── utils.py
     │   └── manage.py
+    ├── env.sh
     ├── init_db.sh
     ├── query_youngest.sql
     └── requirements.txt
@@ -105,6 +106,10 @@ python-api-assignment
 - Install python packages:
 ```shell 
 pip install -r requirements.txt
+```
+- Set enviroment variables:
+```shell script
+source env.sh
 ```
 - Create database, run file init_db.sh. For any reasons, it's not working, i will fixed later!
 ```shell
