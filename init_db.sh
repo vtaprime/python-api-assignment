@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###################################################
-# First Bash Shell script to execute psql command
+# Bash Shell script to execute psql command to create db, create table and insert some data
 ###################################################
 
 #Execute few psql commands:
